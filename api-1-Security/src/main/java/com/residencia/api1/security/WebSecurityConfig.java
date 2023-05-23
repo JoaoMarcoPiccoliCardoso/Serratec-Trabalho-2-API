@@ -43,9 +43,9 @@ public class WebSecurityConfig {
             //Essas linhas que definimos quais rotas serão publicas e quais privadas
             .authorizeHttpRequests(auth -> auth
             		.requestMatchers("/auth/**", "/h2-console/**", "/roles/**").permitAll()
-                    .requestMatchers("/inst/**").hasRole("INSTRUTOR") // autoriza o acesso a rotas por perfil
-                    .requestMatchers("/adm/**", "/swagger-ui/**", "/v3/api-docs/**").hasAnyRole("DIRETORIA") //autoriza o acesso a rotas por perfis
-                    .requestMatchers("/test/**").hasAnyRole("DIRETORIA", "INSTRUTOR", "USER") //autoriza o acesso a rotas por perfis
+                    .requestMatchers("/inst**").hasRole("INSTRUTOR") // autoriza o acesso a rotas por perfil
+                    .requestMatchers("/adm**", "/swagger-ui/**", "/v3/api-docs/**").hasAnyRole("DIRETORIA") //autoriza o acesso a rotas por perfis
+                    .requestMatchers("/test**").hasAnyRole("DIRETORIA", "INSTRUTOR", "USER") //autoriza o acesso a rotas por perfis
                     .anyRequest().authenticated()) //demais rotas, nao configuradas acima, so poderao ser acessadas mediante autenticacao
 		;		
 		

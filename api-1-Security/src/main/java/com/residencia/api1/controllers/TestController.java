@@ -16,19 +16,19 @@ public class TestController {
 	}
 
 	@GetMapping("/user")
-	// @PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')") //e possivel definir diretamente no controller o nivel de acesso por role
+	@PreAuthorize("hasRole('USER') or hasRole('INSTRUTOR') or hasRole('DIRETORIA')") //e possivel definir diretamente no controller o nivel de acesso por role
 	public String userAccess() {
 		return "User Content.";
 	}
 
 	@GetMapping("/inst")
-	//@PreAuthorize("hasRole('MODERATOR')")
+	@PreAuthorize("hasRole('INSTRUTOR')")
 	public String moderatorAccess() {
 		return "Instrutor Board.";
 	}
 
 	@GetMapping("/adm")
-	//@PreAuthorize("hasRole('ADMIN')")
+	@PreAuthorize("hasRole('DIRETORIA')")
 	public String adminAccess() {
 		return "Admin Board.";
 	}
