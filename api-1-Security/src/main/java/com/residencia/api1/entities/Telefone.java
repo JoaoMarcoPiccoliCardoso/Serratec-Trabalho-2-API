@@ -11,6 +11,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 @JsonIdentityInfo(
         generator = ObjectIdGenerators.PropertyGenerator.class,
@@ -26,6 +28,8 @@ public class Telefone {
 	@Column(name = "id")
 	private Integer id;
 	
+	@NotBlank
+	@Size(min = 8, max = 15)
 	@Column(name = "numero")
 	private int numero;
 	

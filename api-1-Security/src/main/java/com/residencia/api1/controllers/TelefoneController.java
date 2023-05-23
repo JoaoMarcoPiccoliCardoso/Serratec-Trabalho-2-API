@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.residencia.api1.entities.Telefone;
 import com.residencia.api1.services.TelefoneService;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("/telefones")
 public class TelefoneController {
@@ -29,7 +31,7 @@ public class TelefoneController {
 	}
 
 	@GetMapping("/user/{id}")
-	public ResponseEntity<Telefone> getTelefoneById(@PathVariable Integer id) {
+	public ResponseEntity<Telefone> getTelefoneById(@Valid @PathVariable Integer id) {
 		Telefone telefoneResponse = telefoneService.getTelefoneById(id);
 		if (null == telefoneResponse)
 			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
@@ -39,12 +41,12 @@ public class TelefoneController {
 	}
 
 	@PostMapping("/inst")
-	public ResponseEntity<Telefone> saveTelefone(@RequestBody Telefone telefone) {
+	public ResponseEntity<Telefone> saveTelefone(@Valid @RequestBody Telefone telefone) {
 		return new ResponseEntity<>(telefoneService.saveTelefone(telefone), HttpStatus.CREATED);
 	}
 
 	@PutMapping("/inst/{id}")
-	public ResponseEntity<Telefone> updateTelefone(@RequestBody Telefone telefone, @PathVariable Integer id) {
+	public ResponseEntity<Telefone> updateTelefone(@Valid @RequestBody Telefone telefone, @Valid @PathVariable Integer id) {
 		Telefone telefoneAtualizado = telefoneService.getTelefoneById(id);
 		if (telefoneAtualizado != null) {
 			return new ResponseEntity<>(telefoneService.updateTelefone(telefone, id), HttpStatus.OK);	
@@ -55,7 +57,7 @@ public class TelefoneController {
 	}
 
 	@DeleteMapping("/adm/{id}")
-	public ResponseEntity<Boolean> delTelefone(@PathVariable Integer id) {
+	public ResponseEntity<Boolean> delTelefone(@Valid @PathVariable Integer id) {
 		if (telefoneService.getTelefoneById(id) != null) {
 			Boolean resp = telefoneService.deleteTelefone(id);
 			if (resp)

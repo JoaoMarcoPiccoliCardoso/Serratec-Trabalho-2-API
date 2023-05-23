@@ -11,6 +11,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
 
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 @Entity
@@ -22,9 +23,11 @@ public class Turma {
 	@Column(name = "id")
 	private Integer id;
 	
+	@NotBlank
 	@Column(name = "nome_disciplina")
 	private String nomeDisciplina;
 	
+	@NotBlank
 	@Column(name = "dia_semana")
 	private String diaSemana;
 
