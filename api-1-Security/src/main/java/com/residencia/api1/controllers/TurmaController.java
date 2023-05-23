@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.residencia.api1.entities.Turma;
 import com.residencia.api1.services.TurmaService;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("/turmas")
 public class TurmaController {
@@ -29,7 +31,7 @@ public class TurmaController {
 	}
 
 	@GetMapping("/user/{id}")
-	public ResponseEntity<Turma> getTurmaById(@PathVariable Integer id) {
+	public ResponseEntity<Turma> getTurmaById(@Valid @PathVariable Integer id) {
 		Turma turmaResponse = turmaService.getTurmaById(id);
 		if (null == turmaResponse)
 			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
@@ -38,12 +40,12 @@ public class TurmaController {
 	}
 
 	@PostMapping("/adm")
-	public ResponseEntity<Turma> saveTurma(@RequestBody Turma turma) {
+	public ResponseEntity<Turma> saveTurma(@Valid @RequestBody Turma turma) {
 		return new ResponseEntity<>(turmaService.saveTurma(turma), HttpStatus.CREATED);
 	}
 
 	@PutMapping("/adm/{id}")
-	public ResponseEntity<Turma> updateTurma(@RequestBody Turma turma, @PathVariable Integer id) {
+	public ResponseEntity<Turma> updateTurma(@Valid @RequestBody Turma turma, @Valid @PathVariable Integer id) {
 		Turma turmaAtualizado = turmaService.getTurmaById(id);
 		if (turmaAtualizado != null) {
 			return new ResponseEntity<>(turmaService.updateTurma(turma, id), HttpStatus.OK);	
@@ -53,7 +55,7 @@ public class TurmaController {
 	}
 
 	@DeleteMapping("/adm/{id}")
-	public ResponseEntity<Boolean> delTurma(@PathVariable Integer id) {
+	public ResponseEntity<Boolean> delTurma(@Valid @PathVariable Integer id) {
 		if (turmaService.getTurmaById(id) != null) {
 			Boolean resp = turmaService.deleteTurma(id);
 			if (resp)
