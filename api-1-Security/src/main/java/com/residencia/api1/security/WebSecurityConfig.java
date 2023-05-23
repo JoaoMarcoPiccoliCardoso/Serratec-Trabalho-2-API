@@ -42,9 +42,9 @@ public class WebSecurityConfig {
             .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS)) //define a politica de sessao
             //Essas linhas que definimos quais rotas serão publicas e quais privadas
             .authorizeHttpRequests(auth -> auth
-            		.requestMatchers("/auth/**").permitAll() //define as rotas publicas/abertas
-                    .requestMatchers("Nos do grupo definiremos quem terá acesso a nivel de ADMIN").hasRole("ADMIN") // autoriza o acesso a rotas por perfil
-                    .requestMatchers("Quais endPoints poderão ser acessados pelo USER e MODERATOR").hasAnyRole("USER", "MODERATOR") //autoriza o acesso a rotas por perfis
+            		.requestMatchers("/user**").permitAll() //define as rotas publicas/abertas
+                    .requestMatchers("/inst**").hasRole("INSTRUTOR") // autoriza o acesso a rotas por perfil
+                    .requestMatchers("/adm").hasAnyRole("DIRETORIA") //autoriza o acesso a rotas por perfis
                     .anyRequest().authenticated()) //demais rotas, nao configuradas acima, so poderao ser acessadas mediante autenticacao
 		;		
 		

@@ -23,12 +23,12 @@ public class InstrutorController {
 	@Autowired
 	InstrutorService  instrutorService;
 	
-	@GetMapping
+	@GetMapping("/user")
 	public ResponseEntity<List<Instrutor>> getAllInstrutors() {
 		return new ResponseEntity<>(instrutorService.getAllInstrutores(), HttpStatus.OK);
 	}
 
-	@GetMapping("/{id}")
+	@GetMapping("/user/{id}")
 	public ResponseEntity<Instrutor> getInstrutorById(@PathVariable Integer id) {
 		Instrutor instrutorResponse = instrutorService.getInstrutorById(id);
 		if (null == instrutorResponse)
@@ -38,13 +38,13 @@ public class InstrutorController {
 
 	}
 
-	@PostMapping
+	@PostMapping("/adm")
 	public ResponseEntity<Instrutor> saveInstrutor(@RequestBody Instrutor instrutor) {
 		return new ResponseEntity<>(instrutorService.saveInstrutor(instrutor), HttpStatus.CREATED);
 	}
 
 
-	@PutMapping("/{id}")
+	@PutMapping("/adm/{id}")
 	public ResponseEntity<Instrutor> updateInstrutor(@RequestBody Instrutor instrutor, @PathVariable Integer id) {
 		Instrutor instrutorAtualizado = instrutorService.getInstrutorById(id);
 		if (instrutorAtualizado != null) {
@@ -54,7 +54,7 @@ public class InstrutorController {
 		}
 	}
 
-	@DeleteMapping("/{id}")
+	@DeleteMapping("/adm/{id}")
 	public ResponseEntity<Boolean> delInstrutor(@PathVariable Integer id) {
 		if (instrutorService.getInstrutorById(id) != null) {
 			Boolean resp = instrutorService.deleteInstrutor(id);

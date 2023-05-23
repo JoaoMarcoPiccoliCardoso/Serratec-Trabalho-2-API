@@ -23,27 +23,26 @@ public class TurmaController {
 	@Autowired
 	TurmaService turmaService;
 
-	@GetMapping
+	@GetMapping("/user")
 	public ResponseEntity<List<Turma>> getAllTurmas() {
 		return new ResponseEntity<>(turmaService.getAllTurmaes(), HttpStatus.OK);
 	}
 
-	@GetMapping("/{id}")
+	@GetMapping("/user/{id}")
 	public ResponseEntity<Turma> getTurmaById(@PathVariable Integer id) {
 		Turma turmaResponse = turmaService.getTurmaById(id);
 		if (null == turmaResponse)
 			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
 		else
 			return new ResponseEntity<>(turmaResponse, HttpStatus.OK);
-
 	}
 
-	@PostMapping
+	@PostMapping("/adm")
 	public ResponseEntity<Turma> saveTurma(@RequestBody Turma turma) {
 		return new ResponseEntity<>(turmaService.saveTurma(turma), HttpStatus.CREATED);
 	}
 
-	@PutMapping("/{id}")
+	@PutMapping("/adm/{id}")
 	public ResponseEntity<Turma> updateTurma(@RequestBody Turma turma, @PathVariable Integer id) {
 		Turma turmaAtualizado = turmaService.getTurmaById(id);
 		if (turmaAtualizado != null) {
@@ -53,7 +52,7 @@ public class TurmaController {
 		}
 	}
 
-	@DeleteMapping("/{id}")
+	@DeleteMapping("/adm/{id}")
 	public ResponseEntity<Boolean> delTurma(@PathVariable Integer id) {
 		if (turmaService.getTurmaById(id) != null) {
 			Boolean resp = turmaService.deleteTurma(id);

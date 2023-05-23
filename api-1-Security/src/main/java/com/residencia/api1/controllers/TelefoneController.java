@@ -23,12 +23,12 @@ public class TelefoneController {
 	@Autowired
 	TelefoneService telefoneService;
 
-	@GetMapping
+	@GetMapping("/user")
 	public ResponseEntity<List<Telefone>> getAllTelefones() {
 		return new ResponseEntity<>(telefoneService.getAllTelefonees(), HttpStatus.OK);
 	}
 
-	@GetMapping("/{id}")
+	@GetMapping("/user/{id}")
 	public ResponseEntity<Telefone> getTelefoneById(@PathVariable Integer id) {
 		Telefone telefoneResponse = telefoneService.getTelefoneById(id);
 		if (null == telefoneResponse)
@@ -38,12 +38,12 @@ public class TelefoneController {
 
 	}
 
-	@PostMapping
+	@PostMapping("/inst")
 	public ResponseEntity<Telefone> saveTelefone(@RequestBody Telefone telefone) {
 		return new ResponseEntity<>(telefoneService.saveTelefone(telefone), HttpStatus.CREATED);
 	}
 
-	@PutMapping("/{id}")
+	@PutMapping("/inst/{id}")
 	public ResponseEntity<Telefone> updateTelefone(@RequestBody Telefone telefone, @PathVariable Integer id) {
 		Telefone telefoneAtualizado = telefoneService.getTelefoneById(id);
 		if (telefoneAtualizado != null) {
@@ -54,7 +54,7 @@ public class TelefoneController {
 
 	}
 
-	@DeleteMapping("/{id}")
+	@DeleteMapping("/adm/{id}")
 	public ResponseEntity<Boolean> delTelefone(@PathVariable Integer id) {
 		if (telefoneService.getTelefoneById(id) != null) {
 			Boolean resp = telefoneService.deleteTelefone(id);
