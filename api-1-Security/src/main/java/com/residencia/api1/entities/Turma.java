@@ -32,7 +32,7 @@ public class Turma {
 	private String diaSemana;
 
 	@ManyToOne
-	@JoinColumn(name = "id_instrutor", referencedColumnName = "id")
+	@JoinColumn(name = "id_instrutor", referencedColumnName = "id", unique = true)
 	private Instrutor instrutor;
 	
 	public Integer getId() {

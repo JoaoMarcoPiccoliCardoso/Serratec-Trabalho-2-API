@@ -37,6 +37,8 @@ public class TurmaService {
 		if (turma.getId() != id) {
 			throw new UnmatchingIdsException(turma.getId(), id);
 		} else {
+			Turma turmaEmail = turmaRepository.save(turma);
+			emailService.enviarEmail("email@gmail.com", "Telefone Atualizado", turmaEmail.toString());
 			return turmaRepository.save(turma);
 		}
 	}

@@ -5,9 +5,12 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.residencia.api1.entities.Instrutor;
 import com.residencia.api1.entities.Telefone;
 import com.residencia.api1.exceptions.NoSuchElementException;
+import com.residencia.api1.exceptions.UniqueElementException;
 import com.residencia.api1.exceptions.UnmatchingIdsException;
+import com.residencia.api1.repositories.InstrutorRepository;
 import com.residencia.api1.repositories.TelefoneRepository;
 import com.residencia.api1.security.services.EmailService;
 
@@ -19,6 +22,9 @@ public class TelefoneService {
 	@Autowired
 	EmailService emailService;
 	
+	@Autowired
+	InstrutorRepository instrutorRepository;
+	
 	public List<Telefone> getAllTelefonees() {
 		return telefoneRepository.findAll();
 	}
@@ -28,9 +34,14 @@ public class TelefoneService {
 	}
 	
 	public Telefone saveTelefone(Telefone telefone) {
-		Telefone telefoneEmail = telefoneRepository.save(telefone);
-		emailService.enviarEmail("email@gmail.com", "Telefone Criado", telefoneEmail.toString());
-		return telefoneRepository.save(telefone);
+			Instrutor instrutor = instrutorRepository.findById(telefone.getInstrutor().getId()).orElse(null);
+			if (instrutor != null && instrutor.getTelefone() == null) {
+				Telefone telefoneEmail = telefoneRepository.save(telefone);
+				emailService.enviarEmail("email@gmail.com", "Telefone Criado", telefoneEmail.toString());
+				return telefoneRepository.save(telefone);					
+			} else {
+				throw new UniqueElementException();
+			}
 	}
 	
 	public Telefone updateTelefone(Telefone telefone, Integer id) {

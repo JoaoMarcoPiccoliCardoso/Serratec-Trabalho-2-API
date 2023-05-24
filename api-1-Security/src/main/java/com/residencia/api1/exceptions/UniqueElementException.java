@@ -11,6 +11,7 @@ public class UniqueElementException extends RuntimeException {
 		super("Instrutor já tem telefone cadastrado.");
 	}
 	
+	
 	public UniqueElementException(String elemento, String valor) {
 		super("Valor " + valor + " de " + elemento + " já existe.");
 	}
