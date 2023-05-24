@@ -26,8 +26,8 @@ public class Instrutor {
 	@Column(name = "id")
 	private Integer id;
 
-	@NotBlank
-	@Size(min = 9, max = 9)
+	/*@NotBlank
+	@Size(min = 9, max = 9)*/
 	@Column(name = "rg")
 	private int rg;
 	
