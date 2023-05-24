@@ -28,7 +28,7 @@ public class Instrutor {
 
 	@NotBlank
 	@Pattern(regexp = "^[0-9]{9}")
-	@Column(name = "rg")
+	@Column(name = "rg", unique = true)
 	private String rg;
 	
 	@NotBlank

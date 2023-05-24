@@ -23,7 +23,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler   {
         ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.NOT_FOUND, e.getMessage());
         
         problemDetail.setTitle("Recurso Não Encontrado");
-        problemDetail.setType(URI.create("https://api.biblioteca.com/errors/not-found"));
+        problemDetail.setType(URI.create("https://api.api1.com/errors/not-found"));
         return problemDetail;
     }
 	
@@ -32,10 +32,19 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler   {
         ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.BAD_REQUEST, e.getMessage());
         
         problemDetail.setTitle("Ids diferentes");
-        problemDetail.setType(URI.create("https://api.biblioteca.com/errors/bad-request"));
+        problemDetail.setType(URI.create("https://api.api1.com/errors/bad-request"));
         return problemDetail;
     }
 	
+	@ExceptionHandler(UniqueElementException.class)
+    ProblemDetail handleUniqueElementException(UniqueElementException e) {
+        ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.BAD_REQUEST, e.getMessage());
+        
+        problemDetail.setTitle("Elemento unico");
+        problemDetail.setType(URI.create("https://api.api1.com/errors/bad-request"));
+        return problemDetail;
+    }
+		
 	@Override
     protected ResponseEntity<Object> handleExceptionInternal(Exception ex, @Nullable Object body, 
     		HttpHeaders headers, HttpStatusCode statusCode, WebRequest request) {

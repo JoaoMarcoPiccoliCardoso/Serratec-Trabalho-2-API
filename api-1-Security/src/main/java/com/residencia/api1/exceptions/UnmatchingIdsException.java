@@ -8,7 +8,7 @@ public class UnmatchingIdsException extends RuntimeException {
 	}
 	
 	public UnmatchingIdsException(Integer idPath, Integer id) {
-		super("Valores declarados para os id do path e do objeto são diferentes");
+		super("Valores declarados para os id do path ("+ idPath +") e do objeto ("+ id +") são diferentes");
 	}
 	
 }

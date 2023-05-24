@@ -27,11 +27,11 @@ public class Telefone {
 	
 	@NotBlank
 	@Pattern(regexp = "^[0-9]{10,15}")
-	@Column(name = "numero")
+	@Column(name = "numero", unique = true)
 	private String numero;
 	
 	@OneToOne
-	@JoinColumn(name = "id_instrutor", referencedColumnName = "id")
+	@JoinColumn(name = "id_instrutor", referencedColumnName = "id", unique = true)
 	private Instrutor instrutor;
 	
 	public String getNumero() {

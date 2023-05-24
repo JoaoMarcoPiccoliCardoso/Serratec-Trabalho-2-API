@@ -30,7 +30,7 @@ public class InstrutorService {
 	public Instrutor saveInstrutor(Instrutor instrutor) {
 		Instrutor instrutorEmail = instrutorRepository.save(instrutor);
 		emailService.enviarEmail("emaildestino@gmail.com", "Instrutor Criado", instrutorEmail.toString());
-		return instrutorRepository.save(instrutor);
+		return instrutorRepository.save(instrutor);					
 	}
 
 	public Instrutor updateInstrutor(Instrutor instrutor, Integer id) {
