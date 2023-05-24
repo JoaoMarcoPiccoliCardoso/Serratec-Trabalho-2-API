@@ -47,10 +47,10 @@ public class TurmaController {
 	@PutMapping("/adm/{id}")
 	public ResponseEntity<Turma> updateTurma(@Valid @RequestBody Turma turma, @Valid @PathVariable Integer id) {
 		Turma turmaAtualizado = turmaService.getTurmaById(id);
-		if (turmaAtualizado != null) {
-			return new ResponseEntity<>(turmaService.updateTurma(turma, id), HttpStatus.OK);	
-		} else {
+		if (turmaAtualizado == null) {
 			return new ResponseEntity<>(turmaService.updateTurma(turma, id), HttpStatus.BAD_REQUEST);	
+		} else {
+			return new ResponseEntity<>(turmaService.updateTurma(turma, id), HttpStatus.OK);	
 		}
 	}
 

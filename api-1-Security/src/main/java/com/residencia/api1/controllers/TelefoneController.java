@@ -48,10 +48,10 @@ public class TelefoneController {
 	@PutMapping("/inst/{id}")
 	public ResponseEntity<Telefone> updateTelefone(@Valid @RequestBody Telefone telefone, @Valid @PathVariable Integer id) {
 		Telefone telefoneAtualizado = telefoneService.getTelefoneById(id);
-		if (telefoneAtualizado != null) {
-			return new ResponseEntity<>(telefoneService.updateTelefone(telefone, id), HttpStatus.OK);	
-		} else {
+		if (telefoneAtualizado == null) {
 			return new ResponseEntity<>(telefoneService.updateTelefone(telefone, id), HttpStatus.BAD_REQUEST);	
+		} else {
+			return new ResponseEntity<>(telefoneService.updateTelefone(telefone, id), HttpStatus.OK);	
 		}
 
 	}

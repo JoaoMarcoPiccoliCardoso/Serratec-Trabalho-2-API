@@ -5,8 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.residencia.api1.entities.Telefone;
 import com.residencia.api1.entities.Turma;
+import com.residencia.api1.exceptions.NoSuchElementException;
 import com.residencia.api1.repositories.TurmaRepository;
 import com.residencia.api1.security.services.EmailService;
 
@@ -23,7 +23,7 @@ public class TurmaService {
 	}
 	
 	public Turma getTurmaById(Integer id) {
-		return turmaRepository.findById(id).orElse(null);
+		return turmaRepository.findById(id).orElseThrow(() -> new NoSuchElementException("Turma", id));
 	}
 	
 	public Turma saveTurma(Turma turma) {

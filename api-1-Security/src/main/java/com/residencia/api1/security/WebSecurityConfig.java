@@ -45,8 +45,13 @@ public class WebSecurityConfig {
             .authorizeHttpRequests(auth -> auth
             		.requestMatchers("/auth/**", "/roles/**", "/test/all", "/swagger-ui/**").permitAll()
             		.requestMatchers(HttpMethod.GET, "/instrutores/**", "/turmas/**").hasAnyRole("USER", "INSTRUTOR", "DIRETORIA")
-                    .requestMatchers("/telefones/**").hasAnyRole("INSTRUTOR", "DIRETORIA") 
-                    .requestMatchers("/instrutores/**", "/turmas/**").hasAnyRole("DIRETORIA")
+                    .requestMatchers(HttpMethod.GET, "/telefones/**").hasAnyRole("INSTRUTOR", "DIRETORIA") 
+                    .requestMatchers(HttpMethod.POST, "/telefones/**").hasAnyRole("INSTRUTOR", "DIRETORIA") 
+                    .requestMatchers(HttpMethod.PUT, "/telefones/**").hasAnyRole("INSTRUTOR", "DIRETORIA") 
+                    .requestMatchers(HttpMethod.DELETE, "/telefones/**").hasAnyRole("INSTRUTOR", "DIRETORIA") 
+                    .requestMatchers(HttpMethod.POST, "/instrutores/**", "/turmas/**").hasAnyRole("DIRETORIA")
+                    .requestMatchers(HttpMethod.PUT, "/instrutores/**", "/turmas/**").hasAnyRole("DIRETORIA")
+                    .requestMatchers(HttpMethod.DELETE, "/instrutores/**", "/turmas/**").hasAnyRole("DIRETORIA")
                     .anyRequest().authenticated()) //demais rotas, nao configuradas acima, so poderao ser acessadas mediante autenticacao
 		;		
 		

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.residencia.api1.entities.Instrutor;
+import com.residencia.api1.exceptions.NoSuchElementException;
 import com.residencia.api1.repositories.InstrutorRepository;
 import com.residencia.api1.security.services.EmailService;
 
@@ -22,7 +23,7 @@ public class InstrutorService {
 	}
 
 	public Instrutor getInstrutorById(Integer id) {
-		return instrutorRepository.findById(id).orElse(null);
+		return instrutorRepository.findById(id).orElseThrow(() -> new NoSuchElementException("Instrutor", id));
 	}
 
 	public Instrutor saveInstrutor(Instrutor instrutor) {

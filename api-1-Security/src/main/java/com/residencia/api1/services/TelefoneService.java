@@ -5,8 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.residencia.api1.entities.Instrutor;
 import com.residencia.api1.entities.Telefone;
+import com.residencia.api1.exceptions.NoSuchElementException;
 import com.residencia.api1.repositories.TelefoneRepository;
 import com.residencia.api1.security.services.EmailService;
 
@@ -23,7 +23,7 @@ public class TelefoneService {
 	}
 	
 	public Telefone getTelefoneById(Integer id) {
-		return telefoneRepository.findById(id).orElse(null);
+		return telefoneRepository.findById(id).orElseThrow(() -> new NoSuchElementException("Telefone", id));
 	}
 	
 	public Telefone saveTelefone(Telefone telefone) {
