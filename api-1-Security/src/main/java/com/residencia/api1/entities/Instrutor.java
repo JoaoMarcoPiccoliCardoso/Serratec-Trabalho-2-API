@@ -14,7 +14,7 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.Pattern;
 
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 @Entity
@@ -26,10 +26,10 @@ public class Instrutor {
 	@Column(name = "id")
 	private Integer id;
 
-	/*@NotBlank
-	@Size(min = 9, max = 9)*/
+	@NotBlank
+	@Pattern(regexp = "^[0-9]{9}")
 	@Column(name = "rg")
-	private int rg;
+	private String rg;
 	
 	@NotBlank
 	@Column(name = "nome")
@@ -49,11 +49,11 @@ public class Instrutor {
 		this.id = id;
 	}
 
-	public int getRg() {
+	public String getRg() {
 		return rg;
 	}
 
-	public void setRg(int rg) {
+	public void setRg(String rg) {
 		this.rg = rg;
 	}
 

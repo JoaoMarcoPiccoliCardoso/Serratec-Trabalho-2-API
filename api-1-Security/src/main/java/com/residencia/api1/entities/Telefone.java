@@ -12,7 +12,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.Pattern;
 
 @JsonIdentityInfo(
         generator = ObjectIdGenerators.PropertyGenerator.class,
@@ -29,19 +29,19 @@ public class Telefone {
 	private Integer id;
 	
 	@NotBlank
-	@Size(min = 8, max = 15)
+	@Pattern(regexp = "^[0-9]{10,15}")
 	@Column(name = "numero")
-	private int numero;
+	private String numero;
 	
 	@OneToOne
 	@JoinColumn(name = "id_instrutor", referencedColumnName = "id")
 	private Instrutor instrutor;
 	
-	public int getNumero() {
+	public String getNumero() {
 		return numero;
 	}
 
-	public void setNumero(int numero) {
+	public void setNumero(String numero) {
 		this.numero = numero;
 	}
 
