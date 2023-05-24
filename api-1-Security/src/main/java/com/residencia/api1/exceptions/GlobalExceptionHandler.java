@@ -27,6 +27,15 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler   {
         return problemDetail;
     }
 	
+	@ExceptionHandler(UnmatchingIdsException.class)
+    ProblemDetail handleUnmatchingIdsException(UnmatchingIdsException e) {
+        ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.BAD_REQUEST, e.getMessage());
+        
+        problemDetail.setTitle("Ids diferentes");
+        problemDetail.setType(URI.create("https://api.biblioteca.com/errors/bad-request"));
+        return problemDetail;
+    }
+	
 	@Override
     protected ResponseEntity<Object> handleExceptionInternal(Exception ex, @Nullable Object body, 
     		HttpHeaders headers, HttpStatusCode statusCode, WebRequest request) {

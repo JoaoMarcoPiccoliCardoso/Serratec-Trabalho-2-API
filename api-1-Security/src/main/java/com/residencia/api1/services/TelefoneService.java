@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.residencia.api1.entities.Telefone;
 import com.residencia.api1.exceptions.NoSuchElementException;
+import com.residencia.api1.exceptions.UnmatchingIdsException;
 import com.residencia.api1.repositories.TelefoneRepository;
 import com.residencia.api1.security.services.EmailService;
 
@@ -33,11 +34,10 @@ public class TelefoneService {
 	}
 	
 	public Telefone updateTelefone(Telefone telefone, Integer id) {
-		Telefone telefoneAtualizado = telefoneRepository.findById(id).orElse(null);
-		if (telefoneAtualizado != null) {
-			return telefoneRepository.save(telefone);
+		if (telefone.getId() != id) {
+			throw new UnmatchingIdsException(telefone.getId(), id);
 		} else {
-			return null;
+			return telefoneRepository.save(telefone);
 		}
 	}
 	

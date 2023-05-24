@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.residencia.api1.entities.Instrutor;
 import com.residencia.api1.exceptions.NoSuchElementException;
+import com.residencia.api1.exceptions.UnmatchingIdsException;
 import com.residencia.api1.repositories.InstrutorRepository;
 import com.residencia.api1.security.services.EmailService;
 
@@ -33,11 +34,10 @@ public class InstrutorService {
 	}
 
 	public Instrutor updateInstrutor(Instrutor instrutor, Integer id) {
-		Instrutor instrutorAtualizado = instrutorRepository.findById(id).orElse(null);
-		if (instrutorAtualizado != null) {
-			return instrutorRepository.save(instrutor);
+		if (instrutor.getId() != id) {
+			throw new UnmatchingIdsException(instrutor.getId(), id);
 		} else {
-			return null;
+			return instrutorRepository.save(instrutor);
 		}
 	}
 
