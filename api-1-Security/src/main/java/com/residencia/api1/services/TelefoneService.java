@@ -5,13 +5,18 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.residencia.api1.entities.Instrutor;
 import com.residencia.api1.entities.Telefone;
 import com.residencia.api1.repositories.TelefoneRepository;
+import com.residencia.api1.security.services.EmailService;
 
 @Service
 public class TelefoneService {
 	@Autowired
 	TelefoneRepository telefoneRepository;
+	
+	@Autowired
+	EmailService emailService;
 	
 	public List<Telefone> getAllTelefonees() {
 		return telefoneRepository.findAll();
@@ -22,6 +27,8 @@ public class TelefoneService {
 	}
 	
 	public Telefone saveTelefone(Telefone telefone) {
+		Telefone telefoneEmail = telefoneRepository.save(telefone);
+		emailService.enviarEmail("email@gmail.com", "Telefone Criado", telefoneEmail.toString());
 		return telefoneRepository.save(telefone);
 	}
 	

@@ -13,6 +13,7 @@ import com.residencia.api1.security.services.EmailService;
 public class InstrutorService {
 	@Autowired
 	InstrutorRepository instrutorRepository;
+	
 	@Autowired
 	EmailService emailService;
 
@@ -25,9 +26,8 @@ public class InstrutorService {
 	}
 
 	public Instrutor saveInstrutor(Instrutor instrutor) {
-
 		Instrutor instrutorEmail = instrutorRepository.save(instrutor);
-		emailService.enviarEmail("jogarjuntossteam@gmail.com", "Ola Rodolpho", instrutorEmail.toString());
+		emailService.enviarEmail("emaildestino@gmail.com", "Instrutor Criado", instrutorEmail.toString());
 		return instrutorRepository.save(instrutor);
 	}
 

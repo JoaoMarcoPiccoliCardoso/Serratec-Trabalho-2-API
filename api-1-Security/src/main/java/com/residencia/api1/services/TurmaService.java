@@ -5,13 +5,18 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.residencia.api1.entities.Telefone;
 import com.residencia.api1.entities.Turma;
 import com.residencia.api1.repositories.TurmaRepository;
+import com.residencia.api1.security.services.EmailService;
 
 @Service
 public class TurmaService {
 	@Autowired
 	TurmaRepository turmaRepository;
+	
+	@Autowired
+	EmailService emailService;
 	
 	public List<Turma> getAllTurmaes() {
 		return turmaRepository.findAll();
@@ -22,6 +27,8 @@ public class TurmaService {
 	}
 	
 	public Turma saveTurma(Turma turma) {
+		Turma turmaEmail = turmaRepository.save(turma);
+		emailService.enviarEmail("email@gmail.com", "Telefone Criado", turmaEmail.toString());
 		return turmaRepository.save(turma);
 	}
 	
